@@ -81,7 +81,7 @@ const LSAdapter = DS.Adapter.extend(Ember.Evented, {
       if (!record || !record.hasOwnProperty('id')) {
         return Ember.RSVP.reject(new Error("Couldn't find record of type '" + type.modelName + "' for the id '" + ids[i] + "'."));
       }
-      results.push(Ember.copy(record));
+      results.push(Object.assign({}, record));
     }
 
     if (results.get('length') && allowRecursive) {
@@ -133,7 +133,7 @@ const LSAdapter = DS.Adapter.extend(Ember.Evented, {
     for (var id in records) {
       record = records[id];
       if (recordMatchesQuery(record)) {
-        results.push(Ember.copy(record));
+        results.push(Object.assign({}, record));
       }
     }
     return results;
@@ -144,7 +144,7 @@ const LSAdapter = DS.Adapter.extend(Ember.Evented, {
       results = Ember.A([]);
 
     for (var id in namespace.records) {
-      results.push(Ember.copy(namespace.records[id]));
+      results.push(Object.assign({}, namespace.records[id]));
     }
     return Ember.RSVP.resolve(results);
   },
